@@ -11,7 +11,7 @@ import android.view.MotionEvent;
 public class SwipeBackActivity extends FragmentActivity implements SwipeBackHelper.SlideBackManager {
 
     private SwipeBackHelper mSwipeBackHelper;
-
+    private bool isFinished=false;
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (!supportSlideBack()) {
@@ -27,7 +27,7 @@ public class SwipeBackActivity extends FragmentActivity implements SwipeBackHelp
                 }
             });
         }
-        return mSwipeBackHelper.processTouchEvent(ev) || super.dispatchTouchEvent(ev);
+        return isFinished||mSwipeBackHelper.processTouchEvent(ev) || super.dispatchTouchEvent(ev);
     }
 
     @Override
@@ -35,6 +35,7 @@ public class SwipeBackActivity extends FragmentActivity implements SwipeBackHelp
         if (mSwipeBackHelper != null) {
             mSwipeBackHelper.finishSwipeImmediately();
         }
+        isFinished=true
         super.finish();
     }
 
